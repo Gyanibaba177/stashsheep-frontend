@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette */
+  --color-magenta: #ff1a75;
+  --color-magenta-dark: #d6005c;
+  --color-blush: #ff6fa5;
+  --color-blush-light: #ffd6e7;
+  --color-plum: #1a0a12;
+  --color-plum-soft: #4a3540;
+  --color-bg: #fff5f9;
+  --color-white: #ffffff;
+
+  /* Fonts (self-hosted via @fontsource, imported in layout.tsx) */
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-plum);
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+
+  ::selection {
+    background-color: var(--color-magenta);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-magenta-dark);
+    outline-offset: 2px;
+  }
+}
+
+@layer utilities {
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-mono-data {
+    font-family: var(--font-mono);
+  }
+
+  /* Signature grid-square motif: literal unit squares, since the product sells square footage */
+  .unit-grid {
+    background-image: linear-gradient(var(--color-blush-light) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-blush-light) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  .unit-grid-dense {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.15) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.15) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
