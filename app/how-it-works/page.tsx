@@ -27,9 +27,9 @@ const steps = [
 export default function HowItWorksPage() {
   return (
     <div className="mx-auto max-w-3xl px-6 py-16">
-      <h1 className="font-display text-3xl font-bold text-plum">How Stashly works</h1>
+      <h1 className="font-display text-3xl font-bold text-plum">How stashsheep works</h1>
       <p className="mt-3 text-sm leading-relaxed text-plum-soft">
-        Stashly connects people with unused space — a garage, a spare room,
+        stashsheep connects people with unused space — a garage, a spare room,
         a storeroom — to renters nearby who need somewhere to put their
         things. No warehouses, no long leases.
       </p>

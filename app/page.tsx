@@ -22,7 +22,7 @@ export default async function Home() {
               Your unused space is worth more than you think.
             </h1>
             <p className="mt-5 max-w-md text-base leading-relaxed text-plum-soft">
-              Stashly connects people with unused space — a garage, a
+              stashsheep connects people with unused space — a garage, a
               storeroom, a spare room — to people nearby who need it.
               Starting with storage, because that's the easiest way to put
               idle space to work.

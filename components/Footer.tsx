@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <span className="font-display text-lg font-bold text-plum">Stashly</span>
+            <span className="font-display text-lg font-bold text-plum">stashsheep</span>
             <p className="mt-3 max-w-xs text-sm text-plum-soft">
               Unused space, put to work. Find storage nearby, or turn your spare
               room into monthly income.
@@ -46,7 +46,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 border-t border-blush-light pt-6 text-xs text-plum-soft">
-          © {new Date().getFullYear()} Stashly. Built as an early MVP — pricing and
+          © {new Date().getFullYear()} stashsheep. Built as an early MVP — pricing and
           availability shown are sample data.
         </div>
       </div>

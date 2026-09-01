@@ -11,7 +11,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Stashly — Rent unused space, nearby",
+  title: "stashsheep — Rent unused space, nearby",
   description:
     "List your spare room, garage, or shed — or find unused space near you. Currently focused on storage, with more use cases coming.",
 };

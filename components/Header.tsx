@@ -12,7 +12,7 @@ export default function Header() {
             <span className="h-2 w-2 rounded-[1px] bg-magenta" />
           </span>
           <span className="font-display text-xl font-bold tracking-tight text-plum">
-            Stashly
+            stashsheep
           </span>
         </Link>
 

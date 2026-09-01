@@ -1,4 +1,4 @@
-# Stashly — P2P storage marketplace
+# stashsheep — P2P storage marketplace
 
 A working full-stack app: Next.js frontend + FastAPI backend + real PostgreSQL
 database. Browse listings, view detail pages, submit real booking requests,
@@ -7,16 +7,16 @@ mock data.
 
 ## Stack
 - Next.js 16 (App Router) + TypeScript — this folder
-- FastAPI + PostgreSQL — separate `stashly-backend` folder
+- FastAPI + PostgreSQL — separate `stashsheep-backend` folder
 - Tailwind CSS v4 (design tokens in `app/globals.css` via `@theme`)
 - Self-hosted fonts via `@fontsource` (Space Grotesk, Inter, JetBrains Mono)
 
 ## Run it locally — you need BOTH servers running
 
-**1. Start the backend first** (see `stashly-backend/README.md` for full
+**1. Start the backend first** (see `stashsheep-backend/README.md` for full
 setup — Postgres, `alembic upgrade head`, seed data):
 ```bash
-cd ../stashly-backend
+cd ../stashsheep-backend
 uvicorn app.main:app --reload
 ```
 This runs on http://localhost:8000
@@ -53,7 +53,7 @@ fallback anymore.
 - **Notifications** — hosts aren't emailed/texted when they get a booking
   request yet.
 
-See `stashly-backend/README.md` for the suggested order to add these.
+See `stashsheep-backend/README.md` for the suggested order to add these.
 
 ## Project structure
 ```
