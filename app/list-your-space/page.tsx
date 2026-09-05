@@ -1,10 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { CheckCircle2, Loader2, Sparkles } from "lucide-react";
+import { CheckCircle2, Loader2, Sparkles, X, ImagePlus } from "lucide-react";
 import Button from "@/components/Button";
 import { SpaceType } from "@/lib/types";
 import { createHost, createListing } from "@/lib/api";
+import { uploadListingPhotos, isPhotoUploadConfigured } from "@/lib/photo-upload";
 
 const spaceTypes: { value: SpaceType; label: string }[] = [
   { value: "room", label: "Room" },
@@ -15,6 +16,8 @@ const spaceTypes: { value: SpaceType; label: string }[] = [
   { value: "warehouse", label: "Warehouse" },
 ];
 
+const MAX_PHOTOS = 6;
+
 export default function ListYourSpacePage() {
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle"
@@ -22,6 +25,24 @@ export default function ListYourSpacePage() {
   const [errorMessage, setErrorMessage] = useState("");
   const [sizeSqFt, setSizeSqFt] = useState(100);
   const [spaceType, setSpaceType] = useState<SpaceType>("garage");
+
+  const [photoFiles, setPhotoFiles] = useState<File[]>([]);
+  const [photoPreviews, setPhotoPreviews] = useState<string[]>([]);
+  const photoUploadReady = isPhotoUploadConfigured();
+
+  function handlePhotoSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const selected = Array.from(e.target.files || []);
+    const combined = [...photoFiles, ...selected].slice(0, MAX_PHOTOS);
+    setPhotoFiles(combined);
+    setPhotoPreviews(combined.map((f) => URL.createObjectURL(f)));
+    e.target.value = "";
+  }
+
+  function removePhoto(index: number) {
+    const next = photoFiles.filter((_, i) => i !== index);
+    setPhotoFiles(next);
+    setPhotoPreviews(next.map((f) => URL.createObjectURL(f)));
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -32,13 +53,15 @@ export default function ListYourSpacePage() {
     const data = new FormData(form);
 
     try {
-      // This MVP has no login yet, so a host account is created inline
-      // from the name/email on this form. A real version would check
-      // whether the person already has an account first.
       const host = await createHost({
         name: String(data.get("hostName")),
         email: String(data.get("hostEmail")),
       });
+
+      let imageUrls: string[] = [];
+      if (photoFiles.length > 0) {
+        imageUrls = await uploadListingPhotos(photoFiles);
+      }
 
       await createListing({
         title: String(data.get("title")),
@@ -50,6 +73,7 @@ export default function ListYourSpacePage() {
         pricePerMonth: Number(data.get("price")),
         availableFrom: String(data.get("availableFrom")),
         hostId: host.id,
+        imageUrls,
       });
 
       setStatus("success");
@@ -177,6 +201,71 @@ export default function ListYourSpacePage() {
         </div>
 
         <div>
+          <label className="text-sm font-medium text-plum">
+            Photos <span className="font-normal text-plum-soft">(optional, up to {MAX_PHOTOS})</span>
+          </label>
+
+          {!photoUploadReady && (
+            <p className="mt-2 rounded-lg bg-blush-light/50 p-3 text-xs text-plum-soft">
+              Photo upload isn't set up yet on this deployment — you can still
+              submit the listing without photos.
+            </p>
+          )}
+
+          {photoUploadReady && (
+            <div className="mt-2 flex flex-wrap gap-3">
+              {photoPreviews.map((src, i) => (
+                <div
+                  key={i}
+                  className="group relative h-20 w-20 overflow-hidden rounded-lg border border-blush-light"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={src}
+                    alt={`Photo ${i + 1}`}
+                    className="h-full w-full object-cover"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => removePhoto(i)}
+                    className="absolute right-1 top-1 rounded-full bg-plum/70 p-0.5 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                    aria-label={`Remove photo ${i + 1}`}
+                  >
+                    <X className="h-3 w-3" />
+                  </button>
+                </div>
+              ))}
+
+              {photoFiles.length < MAX_PHOTOS && (
+                <label
+                  htmlFor="photos"
+                  className="flex h-20 w-20 cursor-pointer flex-col items-center justify-center gap-1 rounded-lg border-2 border-dashed border-blush-light text-plum-soft hover:border-magenta hover:text-magenta-dark"
+                >
+                  <ImagePlus className="h-5 w-5" />
+                  <span className="text-[10px]">Add</span>
+                </label>
+              )}
+              <input
+                id="photos"
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handlePhotoSelect}
+                className="hidden"
+              />
+            </div>
+          )}
+
+          <div className="mt-3 flex items-start gap-2 rounded-lg bg-blush-light/50 p-3 text-xs text-plum-soft">
+            <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-magenta-dark" />
+            <span>
+              A future version of this form will estimate the size from
+              your photos — for now, set it manually below.
+            </span>
+          </div>
+        </div>
+
+        <div>
           <label htmlFor="size" className="text-sm font-medium text-plum">
             Size: <span className="font-mono-data">{sizeSqFt} sq ft</span>
           </label>
@@ -190,15 +279,6 @@ export default function ListYourSpacePage() {
             onChange={(e) => setSizeSqFt(Number(e.target.value))}
             className="mt-2 w-full accent-[#ff1a75]"
           />
-
-          <div className="mt-3 flex items-start gap-2 rounded-lg bg-blush-light/50 p-3 text-xs text-plum-soft">
-            <Sparkles className="mt-0.5 h-3.5 w-3.5 shrink-0 text-magenta-dark" />
-            <span>
-              Not sure of the size? A future version of this form will
-              estimate it from a couple of photos — for now, a rough
-              measurement is fine.
-            </span>
-          </div>
         </div>
 
         <div className="grid gap-6 sm:grid-cols-2">

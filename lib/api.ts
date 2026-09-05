@@ -26,6 +26,7 @@ interface ApiListing {
   price_per_month: number;
   currency: string;
   amenities: string[];
+  images: string[];
   available_from: string;
   min_duration_months: number;
   is_active: boolean;
@@ -71,7 +72,7 @@ function mapListing(l: ApiListing): Listing {
     sizeSqFt: l.size_sqft,
     pricePerMonth: l.price_per_month,
     currency: l.currency as Listing["currency"],
-    images: [],
+    images: l.images,
     amenities: l.amenities,
     host: mapHost(l.host),
     availableFrom: l.available_from,
@@ -172,6 +173,7 @@ export async function createListing(payload: {
   pricePerMonth: number;
   availableFrom: string;
   hostId: number;
+  imageUrls?: string[];
 }): Promise<ApiListing> {
   const res = await fetch(`${API_URL}/api/listings`, {
     method: "POST",
@@ -187,6 +189,7 @@ export async function createListing(payload: {
       available_from: payload.availableFrom,
       host_id: payload.hostId,
       amenities: [],
+      image_urls: payload.imageUrls || [],
     }),
   });
   if (!res.ok) {

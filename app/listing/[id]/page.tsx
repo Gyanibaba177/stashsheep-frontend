@@ -49,14 +49,47 @@ export default async function ListingDetailPage({
             </span>
           </div>
 
-          <div className="unit-grid mt-8 flex items-center justify-center rounded-2xl border border-blush-light bg-blush-light/30 p-10">
-            <div className="text-center">
-              <UnitGrid sqFt={listing.sizeSqFt} maxCells={80} className="mx-auto max-w-xs" />
-              <p className="mt-4 font-mono-data text-sm text-plum-soft">
-                {listing.sizeSqFt} sq ft, scaled
+          {listing.images.length > 0 ? (
+            <div className="mt-8">
+              <div className="aspect-video w-full overflow-hidden rounded-2xl border border-blush-light bg-blush-light/30">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={listing.images[0]}
+                  alt={listing.title}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+              {listing.images.length > 1 && (
+                <div className="mt-3 grid grid-cols-4 gap-3 sm:grid-cols-5">
+                  {listing.images.slice(1).map((src, i) => (
+                    <div
+                      key={i}
+                      className="aspect-square overflow-hidden rounded-lg border border-blush-light"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={src}
+                        alt={`${listing.title} photo ${i + 2}`}
+                        className="h-full w-full object-cover"
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
+              <p className="mt-3 font-mono-data text-xs text-plum-soft">
+                {listing.sizeSqFt} sq ft
               </p>
             </div>
-          </div>
+          ) : (
+            <div className="unit-grid mt-8 flex items-center justify-center rounded-2xl border border-blush-light bg-blush-light/30 p-10">
+              <div className="text-center">
+                <UnitGrid sqFt={listing.sizeSqFt} maxCells={80} className="mx-auto max-w-xs" />
+                <p className="mt-4 font-mono-data text-sm text-plum-soft">
+                  {listing.sizeSqFt} sq ft, scaled
+                </p>
+              </div>
+            </div>
+          )}
 
           <div className="mt-8">
             <h2 className="font-display text-lg font-semibold text-plum">

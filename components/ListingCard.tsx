@@ -18,8 +18,17 @@ export default function ListingCard({ listing }: { listing: Listing }) {
       href={`/listing/${listing.id}`}
       className="group flex flex-col overflow-hidden rounded-2xl border border-blush-light bg-white transition-shadow hover:shadow-lg hover:shadow-blush-light/60"
     >
-      <div className="unit-grid relative flex h-40 items-center justify-center bg-blush-light/40 p-6">
-        <UnitGrid sqFt={listing.sizeSqFt} maxCells={48} className="w-full max-w-[160px]" />
+      <div className="unit-grid relative flex h-40 items-center justify-center overflow-hidden bg-blush-light/40 p-6">
+        {listing.images.length > 0 ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={listing.images[0]}
+            alt={listing.title}
+            className="absolute inset-0 h-full w-full object-cover"
+          />
+        ) : (
+          <UnitGrid sqFt={listing.sizeSqFt} maxCells={48} className="w-full max-w-[160px]" />
+        )}
         {listing.category === "business" && (
           <span className="absolute left-3 top-3 rounded-full bg-plum px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide text-white">
             Business
