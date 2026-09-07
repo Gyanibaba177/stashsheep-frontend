@@ -4,15 +4,11 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-blush-light bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2">
-          <span className="grid grid-cols-2 gap-[2px]" aria-hidden="true">
-            <span className="h-2 w-2 rounded-[1px] bg-magenta" />
-            <span className="h-2 w-2 rounded-[1px] bg-blush" />
-            <span className="h-2 w-2 rounded-[1px] bg-blush" />
-            <span className="h-2 w-2 rounded-[1px] bg-magenta" />
-          </span>
+             <Link href="/" className="flex items-center gap-2">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/logo.jpeg" alt="StashSheep logo" className="h-9 w-9" />
           <span className="font-display text-xl font-bold tracking-tight text-plum">
-            stashsheep
+            StashSheep
           </span>
         </Link>
 

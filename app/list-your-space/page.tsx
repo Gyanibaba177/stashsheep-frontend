@@ -228,7 +228,7 @@ export default function ListYourSpacePage() {
                   <button
                     type="button"
                     onClick={() => removePhoto(i)}
-                    className="absolute right-1 top-1 rounded-full bg-plum/70 p-0.5 text-white opacity-0 transition-opacity group-hover:opacity-100"
+                                        className="absolute right-1 top-1 rounded-full bg-plum/70 p-1 text-white hover:bg-plum"
                     aria-label={`Remove photo ${i + 1}`}
                   >
                     <X className="h-3 w-3" />

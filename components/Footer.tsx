@@ -6,7 +6,11 @@ export default function Footer() {
       <div className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid gap-10 sm:grid-cols-3">
           <div>
-            <span className="font-display text-lg font-bold text-plum">stashsheep</span>
+                        <span className="flex items-center gap-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo.png" alt="StashSheep logo" className="h-7 w-7" />
+              <span className="font-display text-lg font-bold text-plum">StashSheep</span>
+            </span>
             <p className="mt-3 max-w-xs text-sm text-plum-soft">
               Unused space, put to work. Find storage nearby, or turn your spare
               room into monthly income.
