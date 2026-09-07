@@ -8,7 +8,7 @@ export default function Footer() {
           <div>
                         <span className="flex items-center gap-2">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo.png" alt="StashSheep logo" className="h-7 w-7" />
+              <img src="/logo.jpeg" alt="StashSheep logo" className="h-7 w-7" />
               <span className="font-display text-lg font-bold text-plum">StashSheep</span>
             </span>
             <p className="mt-3 max-w-xs text-sm text-plum-soft">
