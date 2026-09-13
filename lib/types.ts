@@ -9,6 +9,7 @@ export interface Host {
   verified: boolean;
   responseRate: number; // 0-100
   memberSince: string; // ISO date
+  phoneNumber?: string;
 }
 
 export interface Listing {

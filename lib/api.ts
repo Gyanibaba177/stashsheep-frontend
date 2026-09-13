@@ -12,6 +12,7 @@ interface ApiHost {
   verified: boolean;
   response_rate: number;
   created_at: string;
+  phone_number: string | null;
 }
 
 interface ApiListing {
@@ -57,6 +58,7 @@ function mapHost(h: ApiHost): Host {
     verified: h.verified,
     responseRate: h.response_rate,
     memberSince: h.created_at,
+    phoneNumber: h.phone_number || undefined,
   };
 }
 
@@ -142,11 +144,16 @@ export async function createBooking(payload: {
 export async function createHost(payload: {
   name: string;
   email: string;
+  phoneNumber?: string;
 }): Promise<{ id: number }> {
   const res = await fetch(`${API_URL}/api/hosts`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
+    body: JSON.stringify({
+      name: payload.name,
+      email: payload.email,
+      phone_number: payload.phoneNumber || null,
+    }),
   });
   if (res.status === 409) {
     // Host with this email already exists — that's fine for this MVP,

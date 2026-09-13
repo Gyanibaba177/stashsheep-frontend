@@ -56,6 +56,7 @@ export default function ListYourSpacePage() {
       const host = await createHost({
         name: String(data.get("hostName")),
         email: String(data.get("hostEmail")),
+        phoneNumber: String(data.get("hostPhone") || "").replace(/\D/g, "") || undefined,
       });
 
       let imageUrls: string[] = [];
@@ -113,7 +114,7 @@ export default function ListYourSpacePage() {
       </p>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-3">
           <div>
             <label htmlFor="hostName" className="text-sm font-medium text-plum">
               Your name
@@ -138,6 +139,21 @@ export default function ListYourSpacePage() {
               placeholder="you@example.com"
               className="mt-2 w-full rounded-lg border border-blush-light px-3 py-2.5 text-sm focus:border-magenta"
             />
+          </div>
+          <div>
+            <label htmlFor="hostPhone" className="text-sm font-medium text-plum">
+              WhatsApp number
+            </label>
+            <input
+              id="hostPhone"
+              name="hostPhone"
+              type="tel"
+              placeholder="923001234567"
+              className="mt-2 w-full rounded-lg border border-blush-light px-3 py-2.5 text-sm focus:border-magenta"
+            />
+            <p className="mt-1 text-[11px] text-plum-soft">
+              Country code, no + or spaces (e.g. 923001234567)
+            </p>
           </div>
         </div>
 
@@ -228,7 +244,7 @@ export default function ListYourSpacePage() {
                   <button
                     type="button"
                     onClick={() => removePhoto(i)}
-                                        className="absolute right-1 top-1 rounded-full bg-plum/70 p-1 text-white hover:bg-plum"
+                    className="absolute right-1 top-1 rounded-full bg-plum/70 p-1 text-white hover:bg-plum"
                     aria-label={`Remove photo ${i + 1}`}
                   >
                     <X className="h-3 w-3" />

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { BadgeCheck, MapPin, Star } from "lucide-react";
+import { BadgeCheck, MapPin, MessageCircle, Star } from "lucide-react";
 import { fetchListing } from "@/lib/api";
 import UnitGrid from "@/components/UnitGrid";
 import BookingPanel from "./BookingPanel";
@@ -25,6 +25,13 @@ export default async function ListingDetailPage({
   const { id } = await params;
   const listing = await fetchListing(id);
   if (!listing) notFound();
+
+  const whatsappMessage = encodeURIComponent(
+    `Hi! I saw your listing "${listing.title}" on StashSheep and I'm interested.`
+  );
+  const whatsappUrl = listing.host.phoneNumber
+    ? `https://wa.me/${listing.host.phoneNumber}?text=${whatsappMessage}`
+    : null;
 
   return (
     <div className="mx-auto max-w-6xl px-6 py-12">
@@ -118,22 +125,35 @@ export default async function ListingDetailPage({
             </ul>
           </div>
 
-          <div className="mt-8 flex items-center gap-3 rounded-2xl border border-blush-light p-5">
-            <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blush-light font-display font-semibold text-magenta-dark">
-              {listing.host.name.charAt(0)}
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-blush-light p-5">
+            <div className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-blush-light font-display font-semibold text-magenta-dark">
+                {listing.host.name.charAt(0)}
+              </div>
+              <div>
+                <p className="flex items-center gap-1.5 font-display text-sm font-semibold text-plum">
+                  {listing.host.name}
+                  {listing.host.verified && (
+                    <BadgeCheck className="h-4 w-4 text-magenta" aria-label="Verified host" />
+                  )}
+                </p>
+                <p className="text-xs text-plum-soft">
+                  {listing.host.responseRate}% response rate · Member since{" "}
+                  {new Date(listing.host.memberSince).getFullYear()}
+                </p>
+              </div>
             </div>
-            <div>
-              <p className="flex items-center gap-1.5 font-display text-sm font-semibold text-plum">
-                {listing.host.name}
-                {listing.host.verified && (
-                  <BadgeCheck className="h-4 w-4 text-magenta" aria-label="Verified host" />
-                )}
-              </p>
-              <p className="text-xs text-plum-soft">
-                {listing.host.responseRate}% response rate · Member since{" "}
-                {new Date(listing.host.memberSince).getFullYear()}
-              </p>
-            </div>
+            {whatsappUrl && (
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1ebe57]"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Message on WhatsApp
+              </a>
+            )}
           </div>
         </div>
 
