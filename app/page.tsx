@@ -16,16 +16,15 @@ export default async function Home() {
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 md:grid-cols-2 md:py-28">
           <div>
             <span className="inline-flex items-center gap-2 rounded-full bg-blush-light px-3 py-1 text-xs font-semibold uppercase tracking-wide text-magenta-dark">
-              Now live in Lahore, Karachi &amp; Islamabad
+              Now live in Lahore
             </span>
             <h1 className="mt-5 font-display text-4xl font-bold leading-[1.05] tracking-tight text-plum md:text-5xl">
               Your unused space is worth more than you think.
             </h1>
-            <p className="mt-5 max-w-md text-base leading-relaxed text-plum-soft">
-              stashsheep connects people with unused space — a garage, a
-              storeroom, a spare room — to people nearby who need it.
-              Starting with storage, because that's the easiest way to put
-              idle space to work.
+                      <p className="mt-5 max-w-md text-base leading-relaxed text-plum-soft">
+              StashSheep connects people with unused space — a garage, a
+              storeroom, a spare room — to people nearby who need it, for
+              whatever the purpose.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <Button href="/browse">

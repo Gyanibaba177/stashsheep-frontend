@@ -12,8 +12,8 @@ export default function Footer() {
               <span className="font-display text-lg font-bold text-plum">StashSheep</span>
             </span>
             <p className="mt-3 max-w-xs text-sm text-plum-soft">
-              Unused space, put to work. Find storage nearby, or turn your spare
-              room into monthly income.
+                           Unused space, put to work. Find space nearby, or turn your spare
+              space into monthly income.
             </p>
           </div>
 

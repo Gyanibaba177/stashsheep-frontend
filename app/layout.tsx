@@ -13,7 +13,7 @@ import Footer from "@/components/Footer";
 export const metadata: Metadata = {
   title: "stashsheep — Rent unused space, nearby",
   description:
-    "List your spare room, garage, or shed — or find unused space near you. Currently focused on storage, with more use cases coming.",
+        "List your spare room, garage, or shed — or find unused space near you, for whatever you need.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

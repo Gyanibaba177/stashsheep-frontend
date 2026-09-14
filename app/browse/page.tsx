@@ -8,8 +8,7 @@ export default async function BrowsePage() {
     <div className="mx-auto max-w-6xl px-6 py-12">
       <h1 className="font-display text-3xl font-bold text-plum">Browse space</h1>
       <p className="mt-2 text-sm text-plum-soft">
-        {listings.length} listing{listings.length === 1 ? "" : "s"} across Lahore,
-        Karachi, and Islamabad.
+                {listings.length} listing{listings.length === 1 ? "" : "s"} in Lahore.
       </p>
       <BrowseClient listings={listings} />
     </div>
